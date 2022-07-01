@@ -1,0 +1,55 @@
+<nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar bg-light">
+    <div class="container">
+
+      <!-- Brand -->
+      <a class="navbar-brand waves-effect" href="{{ path("app_front") }}">
+        <strong class="blue-text">MyShop</strong>
+      </a>
+
+      <!-- Links -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <!-- Left -->
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link waves-effect" href="{{ path("app_front") }}">Accueil
+            </a>
+          </li>
+           {% if not app.user %}
+          <li class="nav-item">
+            <a class="nav-link waves-effect" href="{{ path('app_register') }}">S'inscrire</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link waves-effect" href="{{ path('app_login') }}">Se connecter</a>
+          </li>
+        {% else %}
+
+          <li class="nav-item">
+            <a class="nav-link waves-effect" href="{{ path('app_logout') }}">Se déconneter</a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link waves-effect" href="{{ path('app_compte') }}">Mon compte</a>
+          </li>
+        {% endif %}
+
+        </ul>
+
+
+        <!-- Right -->
+			<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+         {% if is_granted('ROLE_ADMIN') %}
+          <li class="nav-item">
+            <a href="{{ path("app_commande_index") }}" class="nav-link">Administration
+            </a>
+          </li> 
+        {% endif %}
+          <li class="nav-item">
+            <a href="{{ path("app_panier") }}" class="nav-link">Mon panier <i class="fa-solid fa-bag-shopping"></i></a>
+          </li>
+        </ul>
+
+      </div>
+
+    </div>
+  </nav>

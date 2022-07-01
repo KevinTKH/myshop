@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="container">
+  <section class="py-5 text-center container ">
+    <div class="row py-lg-5" style="background-color:#f4efe0">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-light">Nos produits</h1>
+        <p class="lead text-muted" style="font-style:italic;">Nos produits sont fabriqués en France et par nos plus grands expert, avec des matériaux de très bonne qualités. Vous y retrouverez principalement des tee shirts de grande classe</p>
+        </p> 
+      </div>
+    </div>
+  </section>
+
+  <div class="album py-5" style="background-color:#f4efe0">
+    <div class="container">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+     {%  for produit in produits %}
+
+        <div class="col">
+          <div class="card shadow-sm" style="width: 22rem;">
+          <img width="100%" height="225" src="/upload/{{produit.photo}}"/>
+            <div class="card-body">
+              <h2>{{produit.titre}}</h2>
+              <p class="card-text">{{produit.description}}</p>
+             <p>{{produit.prix}}€ </p>
+
+              <div class="d-flex">
+                  <a href="{{ path('produit_detail', {'id': produit.id}) }}" class="btn btn-sm btn-outline-secondary" style="margin-right: 10px">Voir le produit</a>
+                {% if produit.stock > 0 %}
+                    <a href="{{ path('app_add_panier', {'id': produit.id}) }}" class="btn btn-sm btn-outline-secondary">Ajouter au panier</a>
+                    <small class="text-success" style="margin-left: auto">En stock</small>
+                {% else %}
+                    <a href="#" class="btn btn-sm btn-outline-secondary disabled">Ajouter au panier</a>
+                    <small class="text-danger" style="margin-left: auto">Epuisé</small>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+    {% endfor %}
+       </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

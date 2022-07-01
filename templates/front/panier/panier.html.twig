@@ -1,0 +1,49 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+<div class="container">
+    <h2 class="mt-5">Votre panier </h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Produit</th>
+                <th>Photo</th>
+                <th>Prix unitaire</th>
+                <th>Quantitté</th>
+                <th>Total produit</th>
+                <th>Supprimer</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in produitsDuPanier %}
+                <tr>
+                    <td>{{ item.produit.titre }}</td>
+                    <td><img width=150 height=80 src="/upload/{{item.produit.photo}}"></td>
+                    <td>{{ item.produit.prix }} €</td>
+                    <td>
+                        <a href="{{ path('panier_del_quantite', {'id': item.produit.id}) }}" class="btn btn-sm"><i class="fa-solid fa-minus"></i></a>
+                        <span class="mx-3">{{ item.qte }}</span>
+                        <a href="{{ path('panier_add_quantite', {'id': item.produit.id}) }}" class="btn btn-sm"><i class="fa-solid fa-plus"></i></a>
+                    </td>
+                    <td>{{ item.qte * item.produit.prix }}  €</td>
+                    <td><a href="{{ path('panier_del_produit', {'id': item.produit.id}) }}" class="btn"><i class="fa-solid fa-trash text-danger"></i></a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colSpan="4" class="text-end">
+                    Total :
+                </td>
+                <td>
+                    {{totalPanier}} €
+                </td>
+                <td></td>
+            </tr>
+        </tfoot>
+    </table>
+    <div class="text-end">
+    <a href="{{ path('panier_commander')}}" class="btn btn-sm btn-outline-secondary">Commander</a>
+</div>
+</div>
+{% endblock %}
